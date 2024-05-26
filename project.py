@@ -43,6 +43,8 @@ def execute_algorithm(choice, arr):
     bubble_sort(arr)
   elif choice == 2:
     insertion_sort(arr)
+  elif choice == 3:
+    arr = quick_sort(arr)
   end_time = time.time()
   return end_time - start_time
 
@@ -53,8 +55,13 @@ def main():
     if choice == 7:
       break
     elif choice in [1, 2 ,3 ,4, 5]:
-      # poner el nombre del algoritmo en el print
-      print("\nYou selected Bubble Sort" if choice == 1 else "\nYou selected Insertion Sort")
+      # show the algorithm selected
+      if choice == 1:
+        print("\nYou selected Bubble Sort")
+      elif choice == 2:
+        print("\nYou selected Insertion Sort")
+      elif choice == 3:
+        print("\nYou selected Quick Sort")
       n = int(input("\nEnter the size of the list: "))
       arr = generate_random_list(n)
       print("\nOriginal list:", arr)
