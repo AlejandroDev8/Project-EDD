@@ -46,6 +46,23 @@ def heap_sort(arr):
     arr[i], arr[0] = arr[0], arr[i]
     heapify(arr, i, 0)
 
+def radix_sort(arr):
+  RADIX = 10
+  placement = 1
+  max_digit = max(arr)
+  while placement <= max_digit:
+    buckets = [[] for _ in range(RADIX)]
+    for i in arr:
+      tmp = int((i / placement) % RADIX)
+      buckets[tmp].append(i)
+    a = 0
+    for b in range(RADIX):
+      for i in buckets[b]:
+        arr[a] = i
+        a += 1
+    placement *= RADIX
+  return arr
+
 def generate_random_list(n):
   return [random.randint(0, 1000) for _ in range(n)]
 
@@ -56,6 +73,7 @@ def print_menu():
   print("2. Insertion Sort")
   print("3. Quick Sort")
   print("4. Heap Sort")
+  print("5. Radix Sort")
   print("7. Exit")
 
 def execute_algorithm(choice, arr):
@@ -68,6 +86,8 @@ def execute_algorithm(choice, arr):
     arr = quick_sort(arr)
   elif choice == 4:
     heap_sort(arr)
+  elif choice == 5:
+    arr = radix_sort(arr)
   end_time = time.time()
   return end_time - start_time
 
@@ -87,6 +107,8 @@ def main():
         print("\nYou selected Quick Sort")
       elif choice == 4:
         print("\nYou selected Heap Sort")
+      elif choice == 5:
+        print("\nYou selected Radix Sort")
       n = int(input("\nEnter the size of the list: "))
       arr = generate_random_list(n)
       print("\nOriginal list:", arr)
