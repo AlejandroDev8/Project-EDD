@@ -17,6 +17,15 @@ def insertion_sort(arr):
       j -= 1
     arr[j + 1] = key
 
+def quick_sort(arr):
+  if len(arr) <= 1:
+    return arr
+  pivot = arr[len(arr) // 2]
+  left = [x for x in arr if x < pivot]
+  middle = [x for x in arr if x == pivot]
+  right = [x for x in arr if x > pivot]
+  return quick_sort(left) + middle + quick_sort(right)
+
 def generate_random_list(n):
   return [random.randint(0, 1000) for _ in range(n)]
 
@@ -25,6 +34,7 @@ def print_menu():
   print("Select the sorting algorithm:")
   print("1. Bubble Sort")
   print("2. Insertion Sort")
+  print("3. Quick Sort")
   print("7. Exit")
 
 def execute_algorithm(choice, arr):
