@@ -26,6 +26,26 @@ def quick_sort(arr):
   right = [x for x in arr if x > pivot]
   return quick_sort(left) + middle + quick_sort(right)
 
+def heap_sort(arr):
+  def heapify(arr, n, i):
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+    if l < n and arr[largest] < arr[l]:
+      largest = l
+    if r < n and arr[largest] < arr[r]:
+      largest = r
+    if largest != i:
+      arr[i], arr[largest] = arr[largest], arr[i]
+      heapify(arr, n, largest)
+  
+  n = len(arr)
+  for i in range(n // 2 - 1, -1, -1):
+    heapify(arr, n, i)
+  for i in range(n-1, 0, -1):
+    arr[i], arr[0] = arr[0], arr[i]
+    heapify(arr, i, 0)
+
 def generate_random_list(n):
   return [random.randint(0, 1000) for _ in range(n)]
 
@@ -35,6 +55,7 @@ def print_menu():
   print("1. Bubble Sort")
   print("2. Insertion Sort")
   print("3. Quick Sort")
+  print("4. Heap Sort")
   print("7. Exit")
 
 def execute_algorithm(choice, arr):
@@ -45,6 +66,8 @@ def execute_algorithm(choice, arr):
     insertion_sort(arr)
   elif choice == 3:
     arr = quick_sort(arr)
+  elif choice == 4:
+    heap_sort(arr)
   end_time = time.time()
   return end_time - start_time
 
@@ -62,6 +85,8 @@ def main():
         print("\nYou selected Insertion Sort")
       elif choice == 3:
         print("\nYou selected Quick Sort")
+      elif choice == 4:
+        print("\nYou selected Heap Sort")
       n = int(input("\nEnter the size of the list: "))
       arr = generate_random_list(n)
       print("\nOriginal list:", arr)
