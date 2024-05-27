@@ -74,6 +74,7 @@ def print_menu():
   print("3. Quick Sort")
   print("4. Heap Sort")
   print("5. Radix Sort")
+  print("6. Compare two algorithms")
   print("7. Exit")
 
 def execute_algorithm(choice, arr):
@@ -88,8 +89,20 @@ def execute_algorithm(choice, arr):
     heap_sort(arr)
   elif choice == 5:
     arr = radix_sort(arr)
+  else:
+    print("Invalid choice")
+    return None
   end_time = time.time()
   return end_time - start_time
+
+def compare_algorithms(algo1, algo2, arr):
+  arr_copy1 = arr.copy()
+  arr_copy2 = arr.copy()
+
+  time1 = execute_algorithm(algo1, arr_copy1)
+  time2 = execute_algorithm(algo2, arr_copy2)
+
+  return time1, time2
 
 def main():
   while True:
@@ -114,7 +127,22 @@ def main():
       print("\nOriginal list:", arr)
       time_taken = execute_algorithm(choice, arr)
       print("\nSorted list:", arr)
-      print("\nTime taken:", time_taken)
+      print(f"\nTime taken by algorithm {choice}: {time_taken:.6f} seconds")
+    elif choice == 6:
+      print("\nChoose two algorithms to compare:")
+      algo1 = int(input("\nEnter first algorithm (1-5): "))
+      algo2 = int(input("Enter second algorithm (1-5): "))
+      if algo1 not in [1, 2, 3, 4, 5] or algo2 not in [1, 2, 3, 4, 5]:
+        print("\nInvalid choices. Please try again.")
+        continue
+      n = int(input("\nEnter the size of the list: "))
+      arr = generate_random_list(n)
+      print("\nOriginal list:", arr)
+      time_taken = execute_algorithm(choice, arr)
+      print("\nSorted list:", arr)
+      time1, time2 = compare_algorithms(algo1, algo2, arr)
+      print(f"\nTime taken by algorithm {algo1}: {time1:.6f} seconds")
+      print(f"Time taken by algorithm {algo2}: {time2:.6f} seconds")
 
 if __name__ == "__main__":
     main()
